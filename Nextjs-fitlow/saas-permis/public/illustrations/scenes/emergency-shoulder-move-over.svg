@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Vehicule d urgence sur accotement</title>
+  <defs>
+    <g id="auto-teal">
+      <rect x="-56" y="-26" width="112" height="52" rx="16" fill="#0f766e" stroke="#0f172a" stroke-width="3" />
+      <rect x="-33" y="-15" width="66" height="14" rx="6" fill="#dbeafe" />
+      <rect x="-33" y="4" width="66" height="12" rx="5" fill="#bfdbfe" />
+      <circle cx="-34" cy="28" r="7" fill="#111827" />
+      <circle cx="34" cy="28" r="7" fill="#111827" />
+    </g>
+    <g id="auto-blue">
+      <rect x="-56" y="-26" width="112" height="52" rx="16" fill="#2563eb" stroke="#0f172a" stroke-width="3" />
+      <rect x="-33" y="-15" width="66" height="14" rx="6" fill="#dbeafe" />
+      <rect x="-33" y="4" width="66" height="12" rx="5" fill="#bfdbfe" />
+      <circle cx="-34" cy="28" r="7" fill="#111827" />
+      <circle cx="34" cy="28" r="7" fill="#111827" />
+    </g>
+    <g id="urgence">
+      <rect x="-64" y="-30" width="128" height="60" rx="14" fill="#dc2626" stroke="#0f172a" stroke-width="3" />
+      <rect x="-14" y="-41" width="28" height="10" rx="3" fill="#60a5fa" />
+      <rect x="-38" y="-17" width="76" height="14" rx="6" fill="#fee2e2" />
+      <circle cx="-38" cy="32" r="7" fill="#111827" />
+      <circle cx="38" cy="32" r="7" fill="#111827" />
+      <circle cx="-18" cy="-36" r="4" fill="#ef4444" />
+      <circle cx="18" cy="-36" r="4" fill="#3b82f6" />
+    </g>
+  </defs>
+
+  <rect width="1200" height="800" fill="#e2e8f0" />
+  <rect x="130" y="70" width="940" height="660" rx="24" fill="#3f3f46" />
+  <rect x="970" y="70" width="100" height="660" fill="#52525b" />
+
+  <line x1="130" y1="70" x2="1070" y2="70" stroke="#f8fafc" stroke-width="6" />
+  <line x1="130" y1="730" x2="1070" y2="730" stroke="#f8fafc" stroke-width="6" />
+  <line x1="590" y1="70" x2="590" y2="730" stroke="#f8fafc" stroke-width="7" stroke-dasharray="34 24" />
+  <line x1="970" y1="70" x2="970" y2="730" stroke="#cbd5e1" stroke-width="4" />
+
+  <g transform="translate(430 530)">
+    <use href="#auto-teal" />
+  </g>
+  <g transform="translate(430 390)">
+    <use href="#auto-blue" />
+  </g>
+  <g transform="translate(1020 400)">
+    <use href="#urgence" />
+  </g>
+
+  <rect x="980" y="520" width="80" height="14" rx="7" fill="#facc15" opacity="0.8" />
+</svg>

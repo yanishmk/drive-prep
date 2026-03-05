@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1021.33"
+   height="1021.33"
+   viewBox="0 0 1021.33 1021.3301"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="EE.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.59"
+     inkscape:cx="860.16949"
+     inkscape:cy="435.59322"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,442.66)">
+    <rect
+       style="fill:#fddf12;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.09032;stroke-linecap:round"
+       id="rect108"
+       width="750"
+       height="750"
+       x="-61.99226"
+       y="34.181473"
+       rx="50"
+       ry="50"
+       transform="rotate(-45)" />
+    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.06124;stroke-linecap:round"
+       id="rect2550"
+       width="730"
+       height="730"
+       x="-51.992271"
+       y="44.181484"
+       rx="40"
+       ry="40"
+       transform="rotate(-45)" />
+    <rect
+       style="fill:#fddf12;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.01763;stroke-linecap:round"
+       id="rect2552"
+       width="700"
+       height="700"
+       x="-36.992275"
+       y="59.181492"
+       rx="25"
+       ry="25"
+       transform="rotate(-45)" />
+    <path
+       id="rect137"
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.905113;stroke-linecap:round"
+       d="m 460.165,-255.49498 v 273 h -168 v 101 h 168 v 273 h 101 v -273 h 168 v -101 h -168 v -273 z" />
+  </g>
+</svg>

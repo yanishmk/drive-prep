@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Croisement avec vehicule lourd</title>
+  <defs>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4b5563" />
+      <stop offset="1" stop-color="#374151" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="#e2e8f0" />
+  <rect x="120" y="90" width="960" height="620" rx="30" fill="url(#road)" />
+  <line x1="600" y1="90" x2="600" y2="710" stroke="#facc15" stroke-width="10" stroke-dasharray="48 28" />
+  <line x1="120" y1="90" x2="1080" y2="90" stroke="#f8fafc" stroke-width="4" />
+  <line x1="120" y1="710" x2="1080" y2="710" stroke="#f8fafc" stroke-width="4" />
+  <g transform="translate(410 520)">
+    <rect x="-165" y="-62" width="330" height="124" rx="18" fill="#0f766e" />
+    <rect x="-116" y="-46" width="90" height="46" rx="8" fill="#99f6e4" />
+    <rect x="22" y="-46" width="90" height="46" rx="8" fill="#99f6e4" />
+    <circle cx="-110" cy="70" r="24" fill="#0f172a" />
+    <circle cx="110" cy="70" r="24" fill="#0f172a" />
+  </g>
+  <g transform="translate(790 290)">
+    <rect x="-220" y="-70" width="440" height="140" rx="20" fill="#64748b" />
+    <rect x="-188" y="-54" width="100" height="56" rx="8" fill="#cbd5e1" />
+    <rect x="-70" y="-54" width="230" height="56" rx="8" fill="#94a3b8" />
+    <circle cx="-150" cy="78" r="24" fill="#0f172a" />
+    <circle cx="120" cy="78" r="24" fill="#0f172a" />
+  </g>
+  </svg>

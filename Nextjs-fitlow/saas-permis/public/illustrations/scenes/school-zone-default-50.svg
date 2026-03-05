@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Zone scolaire vitesse par defaut</title>
+  <rect width="1200" height="800" fill="#f8fafc" />
+  <g transform="translate(330 390)">
+    <polygon points="0,-220 220,0 0,220 -220,0" fill="#facc15" stroke="#111827" stroke-width="12" />
+    <rect x="-26" y="-122" width="52" height="82" fill="#111827" />
+    <rect x="-90" y="-40" width="180" height="18" fill="#111827" />
+    <rect x="-18" y="-160" width="36" height="30" fill="#111827" />
+  </g>
+  <g transform="translate(840 390)">
+    <rect x="-180" y="-220" width="360" height="440" rx="30" fill="#ffffff" stroke="#111827" stroke-width="10" />
+    </g>
+  </svg>

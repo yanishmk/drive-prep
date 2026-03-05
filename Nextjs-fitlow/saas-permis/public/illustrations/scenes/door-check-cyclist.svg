@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title">
+  <title id="title">Ouverture de portiere et cycliste arrivant dans la voie cyclable</title>
+  <defs>
+    <g id="parked-car">
+      <rect x="-120" y="-40" width="240" height="80" rx="20" fill="#334155" stroke="#0f172a" stroke-width="4" />
+      <rect x="-70" y="-22" width="140" height="16" rx="6" fill="#cbd5e1" />
+      <rect x="-70" y="0" width="140" height="14" rx="6" fill="#94a3b8" />
+      <circle cx="-70" cy="44" r="9" fill="#111827" />
+      <circle cx="70" cy="44" r="9" fill="#111827" />
+    </g>
+    <g id="bike">
+      <circle cx="-28" cy="10" r="16" fill="none" stroke="#0f172a" stroke-width="6" />
+      <circle cx="28" cy="10" r="16" fill="none" stroke="#0f172a" stroke-width="6" />
+      <path d="M-28 10 L-6 -10 L28 10 L3 10 Z" fill="none" stroke="#0f172a" stroke-width="6" />
+      <line x1="-6" y1="-10" x2="8" y2="-28" stroke="#0f172a" stroke-width="6" />
+      <circle cx="8" cy="-32" r="7" fill="#0f172a" />
+    </g>
+  </defs>
+
+  <rect width="1200" height="760" fill="#dbeafe" />
+  <rect y="600" width="1200" height="160" fill="#a3a3a3" />
+
+  <rect x="90" y="220" width="1020" height="380" rx="20" fill="#3f3f46" />
+  <rect x="880" y="220" width="230" height="380" fill="#64748b" />
+  <rect x="730" y="220" width="150" height="380" fill="#0ea5a6" opacity="0.7" />
+
+  <line x1="90" y1="220" x2="1110" y2="220" stroke="#f8fafc" stroke-width="6" />
+  <line x1="90" y1="600" x2="1110" y2="600" stroke="#f8fafc" stroke-width="6" />
+  <line x1="730" y1="220" x2="730" y2="600" stroke="#f8fafc" stroke-width="6" />
+  <line x1="880" y1="220" x2="880" y2="600" stroke="#f8fafc" stroke-width="6" />
+  <line x1="440" y1="220" x2="440" y2="600" stroke="#f8fafc" stroke-width="8" stroke-dasharray="34 28" />
+
+  <g transform="translate(810 410) rotate(180)">
+    <use href="#parked-car" />
+  </g>
+  <rect x="710" y="332" width="24" height="78" rx="8" fill="#475569" stroke="#0f172a" stroke-width="4" />
+
+  <g transform="translate(610 445)">
+    <use href="#bike" />
+  </g>
+
+  <rect x="760" y="292" width="34" height="20" rx="4" fill="#f8fafc" />
+  <line x1="725" y1="365" x2="640" y2="418" stroke="#f8fafc" stroke-width="6" stroke-dasharray="16 12" />
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750">
+  <rect width="1200" height="750" fill="#dbeafe" />
+  <rect y="560" width="1200" height="190" fill="#65a30d" />
+  <rect x="80" y="300" width="1040" height="320" rx="24" fill="#4b5563" />
+  <line x1="600" y1="300" x2="600" y2="620" stroke="#facc15" stroke-width="12" stroke-dasharray="30 24" />
+
+  <rect x="360" y="390" width="420" height="130" rx="22" fill="#eab308" stroke="#0f172a" stroke-width="10" />
+  <circle cx="450" cy="530" r="28" fill="#111827" />
+  <circle cx="700" cy="530" r="28" fill="#111827" />
+
+  <circle cx="380" cy="372" r="18" fill="#ef4444" stroke="#111827" stroke-width="8" />
+  <circle cx="760" cy="372" r="18" fill="#ef4444" stroke="#111827" stroke-width="8" />
+  <circle cx="380" cy="372" r="40" fill="none" stroke="#ef4444" stroke-width="8" opacity="0.35" />
+  <circle cx="760" cy="372" r="40" fill="none" stroke="#ef4444" stroke-width="8" opacity="0.35" />
+
+  <polygon points="805,450 860,430 860,470" fill="#ef4444" stroke="#111827" stroke-width="6" />
+  <text x="840" y="454" text-anchor="middle" dominant-baseline="middle" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff">
+    STOP
+  </text>
+
+  <rect x="150" y="430" width="120" height="72" rx="14" fill="#2563eb" stroke="#0f172a" stroke-width="6" />
+  <rect x="930" y="430" width="120" height="72" rx="14" fill="#0f766e" stroke="#0f172a" stroke-width="6" />
+  <line x1="290" y1="468" x2="340" y2="468" stroke="#f8fafc" stroke-width="10" />
+  <line x1="860" y1="468" x2="910" y2="468" stroke="#f8fafc" stroke-width="10" />
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Conduite de nuit derriere un vehicule</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220" />
+      <stop offset="1" stop-color="#172135" />
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#374151" />
+      <stop offset="1" stop-color="#1f2937" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)" />
+  <rect x="200" y="140" width="800" height="660" fill="url(#road)" />
+  <line x1="600" y1="160" x2="600" y2="790" stroke="#facc15" stroke-width="10" stroke-dasharray="50 34" />
+  <line x1="200" y1="140" x2="200" y2="800" stroke="#e2e8f0" stroke-width="6" />
+  <line x1="1000" y1="140" x2="1000" y2="800" stroke="#e2e8f0" stroke-width="6" />
+  <g transform="translate(600 320)">
+    <rect x="-120" y="-42" width="240" height="84" rx="14" fill="#334155" />
+    <rect x="-88" y="-32" width="74" height="36" rx="8" fill="#64748b" />
+    <rect x="16" y="-32" width="74" height="36" rx="8" fill="#64748b" />
+    <circle cx="-84" cy="45" r="16" fill="#0f172a" />
+    <circle cx="84" cy="45" r="16" fill="#0f172a" />
+    <rect x="-102" y="2" width="18" height="10" rx="4" fill="#ef4444" />
+    <rect x="84" y="2" width="18" height="10" rx="4" fill="#ef4444" />
+  </g>
+  <g transform="translate(600 610)">
+    <rect x="-145" y="-52" width="290" height="104" rx="16" fill="#0f172a" />
+    <rect x="-104" y="-40" width="84" height="42" rx="8" fill="#334155" />
+    <rect x="20" y="-40" width="84" height="42" rx="8" fill="#334155" />
+    <circle cx="-98" cy="55" r="20" fill="#020617" />
+    <circle cx="98" cy="55" r="20" fill="#020617" />
+    <path d="M-145 -8 L-300 -50 L-300 4 L-145 8 Z" fill="#fde68a" opacity="0.75" />
+    <path d="M145 -8 L300 -50 L300 4 L145 8 Z" fill="#fde68a" opacity="0.75" />
+  </g>
+  <g transform="translate(968 120)">
+    </g>
+</svg>

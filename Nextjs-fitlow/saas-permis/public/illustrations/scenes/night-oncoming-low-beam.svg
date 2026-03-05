@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title">
+  <title id="title">Croisement de nuit</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b1220" />
+      <stop offset="1" stop-color="#1e293b" />
+    </linearGradient>
+    <linearGradient id="road" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2f3747" />
+      <stop offset="1" stop-color="#252b38" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#sky)" />
+  <rect x="80" y="230" width="1040" height="360" rx="24" fill="url(#road)" />
+  <line x1="80" y1="410" x2="1120" y2="410" stroke="#facc15" stroke-width="10" stroke-dasharray="46 28" />
+  <line x1="80" y1="230" x2="1120" y2="230" stroke="#e2e8f0" stroke-width="4" />
+  <line x1="80" y1="590" x2="1120" y2="590" stroke="#e2e8f0" stroke-width="4" />
+  <g transform="translate(360 360)">
+    <rect x="-140" y="-50" width="280" height="100" rx="16" fill="#0f766e" />
+    <rect x="-102" y="-36" width="82" height="42" rx="8" fill="#99f6e4" />
+    <rect x="20" y="-36" width="82" height="42" rx="8" fill="#99f6e4" />
+    <circle cx="-96" cy="56" r="20" fill="#0f172a" />
+    <circle cx="96" cy="56" r="20" fill="#0f172a" />
+    <path d="M-140 -12 L-280 -34 L-280 10 L-140 12 Z" fill="#fde68a" opacity="0.65" />
+    <path d="M140 -12 L280 -34 L280 10 L140 12 Z" fill="#fde68a" opacity="0.65" />
+  </g>
+  <g transform="translate(840 460)">
+    <rect x="-140" y="-50" width="280" height="100" rx="16" fill="#1d4ed8" />
+    <rect x="-102" y="-36" width="82" height="42" rx="8" fill="#bfdbfe" />
+    <rect x="20" y="-36" width="82" height="42" rx="8" fill="#bfdbfe" />
+    <circle cx="-96" cy="56" r="20" fill="#0f172a" />
+    <circle cx="96" cy="56" r="20" fill="#0f172a" />
+    <path d="M-140 -12 L-280 -34 L-280 10 L-140 12 Z" fill="#fde68a" opacity="0.65" />
+    <path d="M140 -12 L280 -34 L280 10 L140 12 Z" fill="#fde68a" opacity="0.65" />
+  </g>
+  </svg>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="604"
+   height="604"
+   viewBox="0 0 604 604.00002"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="QC Prohibitory 600.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     inkscape:showpageshadow="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="1.18"
+     inkscape:cx="457.62712"
+     inkscape:cy="283.05085"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Lager 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-392)">
+    <rect
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.7029;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect785"
+       width="602"
+       height="602"
+       x="1"
+       y="393"
+       rx="51"
+       ry="51" />
+    <rect
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.700564;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect895"
+       width="600"
+       height="600"
+       x="2"
+       y="394"
+       rx="50"
+       ry="50" />
+    <rect
+       style="fill:#000000;fill-rule:evenodd;stroke:none;stroke-width:0.677212;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect926"
+       width="580"
+       height="580"
+       x="12"
+       y="404"
+       rx="40"
+       ry="40" />
+    <rect
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.642184;stroke-linecap:round;stroke-linejoin:bevel"
+       id="rect4948"
+       width="550"
+       height="550"
+       x="27"
+       y="419"
+       rx="25"
+       ry="25" />
+    <circle
+       style="fill:#ee2a2a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.982978;stroke-linecap:round;stroke-linejoin:bevel"
+       id="path108"
+       cx="302"
+       cy="694"
+       r="260" />
+    <circle
+       style="fill:#ffffff;fill-rule:evenodd;stroke:none;stroke-width:0.873338;stroke-linecap:round;stroke-linejoin:bevel"
+       id="circle922"
+       cx="302"
+       cy="694"
+       r="231" />
+    <path
+       style="fill:#ee2a2a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.916816;stroke-linecap:round;stroke-linejoin:bevel"
+       id="circle1710"
+       sodipodi:type="arc"
+       sodipodi:cx="302"
+       sodipodi:cy="694"
+       sodipodi:rx="242.5"
+       sodipodi:ry="242.5"
+       sodipodi:start="3.338745"
+       sodipodi:end="6.0860329"
+       sodipodi:arc-type="chord"
+       d="M 64.197626,646.49967 A 242.5,242.5 0 0 1 302,451.5 242.5,242.5 0 0 1 539.80237,646.49966 Z"
+       sodipodi:open="true" />
+    <path
+       style="fill:#ee2a2a;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0.916816;stroke-linecap:round;stroke-linejoin:bevel"
+       id="path1838"
+       sodipodi:type="arc"
+       sodipodi:cx="302"
+       sodipodi:cy="694"
+       sodipodi:rx="242.5"
+       sodipodi:ry="242.5"
+       sodipodi:start="0.19715239"
+       sodipodi:end="2.9444403"
+       sodipodi:arc-type="chord"
+       d="M 539.80237,741.50034 A 242.5,242.5 0 0 1 302,936.5 242.5,242.5 0 0 1 64.197627,741.50033 Z"
+       sodipodi:open="true" />
+  </g>
+</svg>
