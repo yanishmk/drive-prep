@@ -230,7 +230,7 @@ export async function recordStripePayment(input: {
   customerEmail?: string | null;
   stripePaymentIntentId?: string | null;
 }): Promise<void> {
-  await supabaseAdminFetch("/rest/v1/payments", {
+  await supabaseAdminFetch("/rest/v1/payments?on_conflict=stripe_session_id", {
     method: "POST",
     headers: {
       Prefer: "resolution=merge-duplicates,return=minimal",
