@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Drive-Prep Logo</title>
+  <desc id="desc">Cute blue car logo for Drive-Prep</desc>
+  <defs>
+    <linearGradient id="bodyBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7dd3fc" />
+      <stop offset="65%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0ea5e9" />
+    </linearGradient>
+    <linearGradient id="glassBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#dbeafe" />
+      <stop offset="100%" stop-color="#93c5fd" />
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="256" cy="430" rx="188" ry="26" fill="#cbd5e1" />
+
+  <g stroke="#082f49" stroke-linecap="round" stroke-linejoin="round">
+    <path
+      d="M94 318c4-84 52-141 130-161 70-18 170-5 216 49 35 40 45 93 31 132-11 30-35 51-69 58H154c-44-8-67-38-60-78z"
+      fill="url(#bodyBlue)"
+      stroke-width="11"
+    />
+
+    <path
+      d="M174 266c8-45 43-80 90-90 51-11 122-2 159 36 18 18 27 39 28 59-63-11-183-13-277-5z"
+      fill="url(#glassBlue)"
+      stroke-width="8"
+    />
+
+    <path d="M300 339c16-12 35-18 58-18 20 0 37 4 52 13" fill="none" stroke-width="9" />
+    <path d="M292 352c24 18 57 28 95 26 23-1 44-6 62-16" fill="none" stroke-width="8" opacity="0.75" />
+
+    <path d="M300 365c22 16 54 19 86 9 10-3 19-8 27-13" fill="none" stroke-width="7" />
+    <path d="M288 366c17 20 41 29 71 29 33 0 62-12 83-34" fill="none" stroke-width="8" />
+
+    <ellipse cx="183" cy="350" rx="38" ry="42" fill="#f8fafc" stroke-width="9" />
+    <ellipse cx="354" cy="350" rx="38" ry="42" fill="#f8fafc" stroke-width="9" />
+    <circle cx="183" cy="350" r="18" fill="#1e293b" stroke-width="6" />
+    <circle cx="354" cy="350" r="18" fill="#1e293b" stroke-width="6" />
+
+    <ellipse cx="216" cy="309" rx="28" ry="24" fill="#ffffff" stroke-width="8" />
+    <ellipse cx="328" cy="303" rx="28" ry="24" fill="#ffffff" stroke-width="8" />
+    <circle cx="216" cy="309" r="10" fill="#0f172a" stroke-width="4" />
+    <circle cx="328" cy="303" r="10" fill="#0f172a" stroke-width="4" />
+    <circle cx="220" cy="304" r="3" fill="#ffffff" stroke-width="0" />
+    <circle cx="332" cy="298" r="3" fill="#ffffff" stroke-width="0" />
+
+    <path d="M246 345c11 10 24 14 38 14 15 0 28-4 39-14" fill="none" stroke-width="8" />
+    <path d="M257 360h32" fill="none" stroke="#ef4444" stroke-width="6" />
+  </g>
+</svg>

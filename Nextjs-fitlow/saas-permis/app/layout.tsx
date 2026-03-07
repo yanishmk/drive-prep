@@ -20,6 +20,11 @@ export const metadata: Metadata = {
   title: "Drive-Prep | Simulations SAAQ Quebec",
   description:
     "Drive-Prep est une plateforme SaaS simple pour s'entrainer aux simulations d'examen theorique de conduite au Quebec.",
+  icons: {
+    icon: "/brand/drive-prep-logo.svg",
+    shortcut: "/brand/drive-prep-logo.svg",
+    apple: "/brand/drive-prep-logo.svg",
+  },
 };
 
 export default function RootLayout({
