@@ -1,13 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useMemo } from "react";
+import { useRouter } from "next/navigation";
 import { clearStoredSession } from "@/lib/supabase/auth";
 
 export default function ConfirmationInscriptionPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const hasSession = searchParams.get("session") === "1";
+  const hasSession = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return new URLSearchParams(window.location.search).get("session") === "1";
+  }, []);
 
   function handleLogout() {
     clearStoredSession();
