@@ -2093,10 +2093,10 @@ const NEW_SCENARIO_QUESTIONS: Question[] = [
     category: "Zone scolaire",
     illustration: {
       kind: "photo",
-      imageUrl: "/illustrations/quebec-signs/qc-d010-1-zone-scolaire.png",
-      alt: "Panneau avance en zone scolaire",
+      imageUrl: "/illustrations/signs/school-zone.svg",
+      alt: "Signalisation de zone scolaire",
       overlayTag: "Zone scolaire",
-      context: "Zone scolaire signalee.",
+      context: "Zone scolaire signalee sans limite inferieure specifique.",
     },
   },
   {

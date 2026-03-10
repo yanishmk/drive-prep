@@ -3,7 +3,30 @@
 import { FormEvent, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signUpWithProfile } from "@/lib/supabase/auth";
+import { signInWithGoogle, signUpWithProfile } from "@/lib/supabase/auth";
+
+function GoogleIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">
+      <path
+        fill="#EA4335"
+        d="M12 10.2v3.9h5.5c-.2 1.2-.9 2.2-1.9 2.9l3 2.3c1.8-1.6 2.8-4 2.8-6.9 0-.7-.1-1.3-.2-2H12z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 21c2.6 0 4.8-.9 6.4-2.4l-3-2.3c-.8.6-1.9 1-3.4 1-2.6 0-4.8-1.8-5.6-4.2l-3.1 2.4C4.8 18.9 8.1 21 12 21z"
+      />
+      <path
+        fill="#4A90E2"
+        d="M6.4 13.1c-.2-.6-.3-1.2-.3-1.9s.1-1.3.3-1.9L3.3 6.9C2.5 8.3 2 9.9 2 11.2s.5 2.9 1.3 4.3l3.1-2.4z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M12 5.1c1.4 0 2.7.5 3.7 1.4l2.8-2.8C16.8 2.1 14.6 1.2 12 1.2 8.1 1.2 4.8 3.3 3.3 6.9l3.1 2.4c.8-2.4 3-4.2 5.6-4.2z"
+      />
+    </svg>
+  );
+}
 
 export default function InscriptionPage() {
   const router = useRouter();
@@ -60,12 +83,27 @@ export default function InscriptionPage() {
         return;
       }
 
-      router.push("/simulations");
+      router.push("/confirmation-inscription?session=1");
     } catch (err) {
       const nextError =
         err instanceof Error ? err.message : "Impossible de creer le compte.";
       setError(nextError);
     } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function onGoogleSignup() {
+    setError(null);
+    setMessage(null);
+    setConfirmationEmail(null);
+    try {
+      setIsLoading(true);
+      await signInWithGoogle();
+    } catch (err) {
+      const nextError =
+        err instanceof Error ? err.message : "Inscription Google impossible.";
+      setError(nextError);
       setIsLoading(false);
     }
   }
@@ -79,6 +117,25 @@ export default function InscriptionPage() {
         </p>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
+          <button
+            type="button"
+            onClick={onGoogleSignup}
+            disabled={isLoading}
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-800 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            <GoogleIcon />
+            <span>Continuer avec Google</span>
+          </button>
+
+          <div className="relative py-1">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-slate-200" />
+            </div>
+            <div className="relative flex justify-center">
+              <span className="bg-white px-2 text-xs text-slate-500">ou</span>
+            </div>
+          </div>
+
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-1 text-sm font-medium text-slate-700">
               Prenom

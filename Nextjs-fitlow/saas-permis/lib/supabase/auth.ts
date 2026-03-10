@@ -191,3 +191,23 @@ export async function signInWithPassword(input: {
   setStoredSession(json);
   return json;
 }
+
+export async function signInWithGoogle() {
+  const { url, key } = getSupabaseConfig();
+  const redirectTo =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/auth/callback?from=oauth`
+      : undefined;
+  if (typeof window === "undefined") {
+    throw new Error("Connexion Google disponible uniquement dans le navigateur.");
+  }
+
+  const authorizeUrl = new URL(`${url}/auth/v1/authorize`);
+  authorizeUrl.searchParams.set("provider", "google");
+  if (redirectTo) {
+    authorizeUrl.searchParams.set("redirect_to", redirectTo);
+  }
+  authorizeUrl.searchParams.set("apikey", key);
+
+  window.location.assign(authorizeUrl.toString());
+}

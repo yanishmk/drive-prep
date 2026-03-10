@@ -184,7 +184,7 @@ export default function AuthCallbackPage() {
 
       if (!isActive) return;
       setDone(true);
-      setTimeout(() => router.replace("/simulations?signup=confirmed"), 1300);
+      setTimeout(() => router.replace("/confirmation-inscription?session=1"), 1200);
     }
 
     run();
@@ -211,10 +211,10 @@ export default function AuthCallbackPage() {
         ) : null}
         <div className="mt-6">
           <Link
-            href={done ? "/simulations" : "/connexion?signup=confirmed"}
+            href={done ? "/confirmation-inscription?session=1" : "/connexion?signup=confirmed"}
             className="inline-flex rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
           >
-            {done ? "Continuer vers les simulations" : "Aller a la connexion"}
+            {done ? "Continuer" : "Aller a la connexion"}
           </Link>
         </div>
       </section>

@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { PlanCheckoutButton } from "@/components/saas/PlanCheckoutButton";
 import { EXAMS } from "@/lib/permis/exams";
 import { QUESTION_STATS } from "@/lib/permis/questionBank";
-import { PLAN_CONFIG } from "@/lib/saas/plans";
+import { PLAN_CONFIG, type PlanCode } from "@/lib/saas/plans";
 
 const benefits = [
   "Simulation chronometree proche du vrai examen theorique.",
@@ -39,6 +40,7 @@ function PriceCard({
   excluded,
   recommended,
   ctaLabel,
+  planCode,
 }: {
   title: string;
   ribbon: string;
@@ -49,6 +51,7 @@ function PriceCard({
   excluded?: string[];
   recommended?: boolean;
   ctaLabel?: string;
+  planCode: PlanCode;
 }) {
   return (
     <article
@@ -86,16 +89,11 @@ function PriceCard({
           ))}
         </div>
 
-        <Link
-          href="/simulations"
-          className={`mt-6 inline-flex w-full items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition ${
-            recommended
-              ? "bg-emerald-600 text-white hover:bg-emerald-500"
-              : "border border-emerald-200 bg-white text-emerald-700 hover:bg-emerald-50"
-          }`}
-        >
-          {ctaLabel ?? "Choisir ce plan"}
-        </Link>
+        <PlanCheckoutButton
+          planCode={planCode}
+          recommended={recommended}
+          label={ctaLabel ?? "Choisir ce plan"}
+        />
       </div>
     </article>
   );
@@ -125,12 +123,6 @@ export default function Home() {
               className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
             >
               Simulations
-            </Link>
-            <Link
-              href="/priorite-scenarios"
-              className="rounded-full border border-emerald-200 bg-white px-4 py-2 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-50"
-            >
-              Priorites
             </Link>
             <span className="mx-1 h-6 w-px bg-slate-200" />
             <Link
@@ -206,44 +198,46 @@ export default function Home() {
               </p>
             </div>
             <p className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
-              ?? Paiement securise - Activation immediate
+              🔒 Paiement securise - Activation immediate
             </p>
           </div>
 
           <div className="mt-8 grid gap-6 lg:grid-cols-2">
             <PriceCard
-              title="Basic ??"
+              title="Basic 🚗"
               ribbon="Examen bientot"
               price={PLAN_CONFIG.basic.priceLabel}
               access="Acces 10 jours"
               subtitle="Ideal si ton examen est dans les prochains jours."
               items={[
-                "? 10 examens complets (format reel)",
-                "? 28 questions par examen",
-                "? Score global immediat",
-                "? Explications claires et directes",
-                "? Mode entrainement flexible",
+                "✅ 10 examens complets (format reel)",
+                "✅ 28 questions par examen",
+                "✅ Score global immediat",
+                "✅ Explications claires et directes",
+                "✅ Mode entrainement flexible",
               ]}
-              excluded={["? Pas de statistiques personnelles", "? Pas de mode strict"]}
+              excluded={["❌ Pas de statistiques personnelles", "❌ Pas de mode strict"]}
               ctaLabel="Demarrer avec Basic"
+              planCode="basic"
             />
 
             <PriceCard
-              title="Pro ?"
+              title="Pro ⭐"
               ribbon="Le plus choisi"
               price={PLAN_CONFIG.pro.priceLabel}
               access="Acces 30 jours"
               subtitle="Le plan complet pour maximiser tes chances de reussite."
               items={[
-                "? 20 examens complets",
-                "? Mode strict (simulation reelle)",
-                "? Score detaille par section",
-                "? Analyse complete des erreurs",
-                "? Statistiques personnelles",
-                "? Recommandations de progression",
+                "✅ 20 examens complets",
+                "✅ Mode strict (simulation reelle)",
+                "✅ Score detaille par section",
+                "✅ Analyse complete des erreurs",
+                "✅ Statistiques personnelles",
+                "✅ Recommandations de progression",
               ]}
               recommended={true}
               ctaLabel="Choisir Pro maintenant"
+              planCode="pro"
             />
           </div>
         </section>
@@ -258,7 +252,7 @@ export default function Home() {
               <ul className="mt-5 grid gap-3 text-sm text-slate-700">
                 {benefits.map((item) => (
                   <li key={`${item}-proof`} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-                    <span className="mr-2 text-emerald-600">?</span>
+                    <span className="mr-2 text-emerald-600">✨</span>
                     {item}
                   </li>
                 ))}
@@ -308,11 +302,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
-
-
-
-
-

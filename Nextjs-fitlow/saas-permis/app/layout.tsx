@@ -3,6 +3,8 @@ import { Manrope, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AccessStatusBadge } from "@/components/saas/AccessStatusBadge";
 import { ProfileConnectedIcon } from "@/components/saas/ProfileConnectedIcon";
+import { FloatingCoachChat } from "@/components/saas/FloatingCoachChat";
+import { AuthRedirectBridge } from "@/components/auth/AuthRedirectBridge";
 
 const manrope = Manrope({
   variable: "--font-manrope",
@@ -35,8 +37,10 @@ export default function RootLayout({
   return (
     <html lang="fr-CA">
       <body className={`${manrope.variable} ${spaceGrotesk.variable} antialiased`}>
+        <AuthRedirectBridge />
         <AccessStatusBadge />
         <ProfileConnectedIcon />
+        <FloatingCoachChat />
         {children}
       </body>
     </html>

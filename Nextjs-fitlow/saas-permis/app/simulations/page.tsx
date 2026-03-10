@@ -12,6 +12,33 @@ import { PLAN_CONFIG, type PlanCode } from "@/lib/saas/plans";
 
 const EXAM_DURATION_SECONDS = 25 * 60;
 const FREE_EXAM_ID = 1;
+const PUBLIC_FREE_EXAM_QUESTION_IDS = [
+  "Q129",
+  "Q130",
+  "Q162",
+  "Q163",
+  "Q164",
+  "Q165",
+  "Q166",
+  "Q170",
+  "Q171",
+  "Q172",
+  "Q173",
+  "Q174",
+  "Q177",
+  "Q178",
+  "Q180",
+  "Q181",
+  "Q182",
+  "Q183",
+  "Q185",
+  "Q186",
+  "Q190",
+  "Q191",
+  "Q193",
+  "Q194",
+  "Q195",
+] as const;
 
 type AccessInfo = {
   userId: string;
@@ -24,6 +51,7 @@ type AccessInfo = {
   freeExamId: number;
   accessibleExamCount: number;
   strictMode: boolean;
+  isGuest?: boolean;
 };
 
 type SectionScore = {
@@ -206,14 +234,19 @@ export default function SimulationsPage() {
   );
 
   const questions = useMemo(() => {
+    const freeExamId = accessInfo?.freeExamId ?? FREE_EXAM_ID;
+    const isPublicFreeExam = Boolean(
+      accessInfo && !accessInfo.hasPaidAccess && selectedExam.exam_id === freeExamId
+    );
     const isBasicPlan = accessInfo?.hasPaidAccess && accessInfo.planCode === "basic";
+    const sourceIds = isPublicFreeExam ? [...PUBLIC_FREE_EXAM_QUESTION_IDS] : selectedExam.questions;
     const ids = isBasicPlan
-      ? buildBasicQuestionIds(selectedExam.questions, selectedExam.exam_id)
-      : selectedExam.questions;
+      ? buildBasicQuestionIds(sourceIds, selectedExam.exam_id)
+      : sourceIds;
     return ids
       .map((id) => getQuestionById(id))
       .filter((question): question is NonNullable<typeof question> => Boolean(question));
-  }, [accessInfo?.hasPaidAccess, accessInfo?.planCode, selectedExam]);
+  }, [accessInfo, selectedExam]);
 
   const currentQuestion = questions[currentIndex];
   const progressPercent = Math.round(((currentIndex + 1) / Math.max(questions.length, 1)) * 100);
@@ -248,8 +281,19 @@ export default function SimulationsPage() {
 
     const session = getStoredSession();
     if (!session?.access_token) {
-      setAccessError("Connecte-toi pour acceder aux simulations.");
-      setAccessInfo(null);
+      setAccessInfo({
+        userId: "guest",
+        planCode: null,
+        planName: "ESSAI GRATUIT",
+        expiresAt: null,
+        hasPaidAccess: false,
+        freeTrialUsed: false,
+        freeExamId: FREE_EXAM_ID,
+        accessibleExamCount: 1,
+        strictMode: false,
+        isGuest: true,
+      });
+      setSelectedExamId(FREE_EXAM_ID);
       setAccessLoading(false);
       return;
     }
@@ -364,7 +408,12 @@ export default function SimulationsPage() {
 
   function startExam() {
     if (!accessInfo) return;
-    if (!accessInfo.hasPaidAccess) {
+    if (accessInfo.isGuest) {
+      if (selectedExamId !== accessInfo.freeExamId) {
+        setSelectionNotice(`En mode invite, seul l examen ${accessInfo.freeExamId} est accessible.`);
+        return;
+      }
+    } else if (!accessInfo.hasPaidAccess) {
       if (selectedExamId !== accessInfo.freeExamId) {
         setSelectionNotice(`Seul l examen ${accessInfo.freeExamId} est disponible en essai gratuit.`);
         return;
@@ -402,10 +451,14 @@ export default function SimulationsPage() {
       const nextSectionScores = computeSectionScores(questions, finalAnswers ?? answersRef.current);
       setSectionScores(nextSectionScores);
 
-      if (accessInfo && !accessInfo.hasPaidAccess && selectedExamId === accessInfo.freeExamId) {
-        const session = getStoredSession();
-        if (!session?.access_token) return final;
-
+      const session = getStoredSession();
+      if (
+        accessInfo &&
+        !accessInfo.isGuest &&
+        !accessInfo.hasPaidAccess &&
+        selectedExamId === accessInfo.freeExamId &&
+        session?.access_token
+      ) {
         try {
           const consumeResponse = await fetch("/api/access", {
             method: "POST",
@@ -427,7 +480,6 @@ export default function SimulationsPage() {
         }
       }
 
-      const session = getStoredSession();
       if (session?.access_token) {
         try {
           const totalQuestions = questions.length;
@@ -464,6 +516,10 @@ export default function SimulationsPage() {
             `Resultat affiche localement, mais non enregistre dans la base. ${message}`
           );
         }
+      } else if (accessInfo?.isGuest) {
+        setResultSaveNotice(
+          "Mode essai gratuit: resultat non sauvegarde. Cree un compte pour enregistrer tes tentatives."
+        );
       }
 
       return final;
@@ -527,7 +583,7 @@ export default function SimulationsPage() {
   async function openStripeCheckout() {
     const session = getStoredSession();
     if (!session?.access_token) {
-      setAccessError("Session absente. Connecte-toi a nouveau.");
+      setSelectionNotice("Connecte-toi d abord pour acheter un plan.");
       return;
     }
 
@@ -686,6 +742,11 @@ export default function SimulationsPage() {
                       : ""}
                     {accessInfo.strictMode ? " - mode strict actif" : " - mode entrainement"}
                   </p>
+                ) : accessInfo.isGuest ? (
+                  <p>
+                    Essai gratuit public: Examen {freeExamId} accessible sans inscription (questions
+                    les plus frequentes). Cree un compte pour sauvegarder tes resultats.
+                  </p>
                 ) : accessInfo.freeTrialUsed ? (
                   <p>
                     Essai gratuit utilise. Debloque le pack pour acceder aux 20 examens.
@@ -712,36 +773,56 @@ export default function SimulationsPage() {
               </button>
 
               {!accessInfo.hasPaidAccess ? (
-                <div className="grid gap-3">
-                  <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
-                    Plan
-                    <select
-                      value={selectedPlan}
-                      onChange={(event) => setSelectedPlan(event.target.value as PlanCode)}
-                      className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm"
+                accessInfo.isGuest ? (
+                  <div className="grid gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+                    <p>Passe en compte membre pour acheter un plan et debloquer tous les examens.</p>
+                    <div className="flex flex-wrap gap-3">
+                      <Link
+                        href="/connexion"
+                        className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+                      >
+                        Connexion
+                      </Link>
+                      <Link
+                        href="/inscription"
+                        className="rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
+                      >
+                        Inscription
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="grid gap-3">
+                    <label className="flex flex-col gap-2 text-sm font-medium text-slate-700">
+                      Plan
+                      <select
+                        value={selectedPlan}
+                        onChange={(event) => setSelectedPlan(event.target.value as PlanCode)}
+                        className="rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm"
+                      >
+                        <option value="basic">
+                          BASIC - {PLAN_CONFIG.basic.priceLabel} - 10 jours / 10 examens
+                        </option>
+                        <option value="pro">
+                          PRO - {PLAN_CONFIG.pro.priceLabel} - 30 jours / 20 examens
+                        </option>
+                      </select>
+                    </label>
+                    <button
+                      onClick={openStripeCheckout}
+                      disabled={paymentLoading}
+                      className="rounded-xl border border-teal-600 bg-teal-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      <option value="basic">
-                        BASIC - {PLAN_CONFIG.basic.priceLabel} - 10 jours / 10 examens
-                      </option>
-                      <option value="pro">
-                        PRO - {PLAN_CONFIG.pro.priceLabel} - 30 jours / 20 examens
-                      </option>
-                    </select>
-                  </label>
-                  <button
-                    onClick={openStripeCheckout}
-                    disabled={paymentLoading}
-                    className="rounded-xl border border-teal-600 bg-teal-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {paymentLoading
-                      ? "Redirection Stripe..."
-                      : `Debloquer plan ${selectedPlan.toUpperCase()} - ${
-                          selectedPlan === "basic"
-                            ? PLAN_CONFIG.basic.priceLabel
-                            : PLAN_CONFIG.pro.priceLabel
-                        }`}
-                  </button>
-                </div>
+                      {paymentLoading
+                        ? "Redirection Stripe..."
+                        : `Debloquer plan ${selectedPlan.toUpperCase()} - ${
+                            selectedPlan === "basic"
+                              ? PLAN_CONFIG.basic.priceLabel
+                              : PLAN_CONFIG.pro.priceLabel
+                          }`}
+                    </button>
+                  </div>
+                )
               ) : null}
             </div>
           </section>
