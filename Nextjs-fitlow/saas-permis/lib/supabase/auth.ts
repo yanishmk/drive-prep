@@ -27,6 +27,7 @@ type SupabaseSession = {
 };
 
 const STORAGE_KEY = "drive_prep_session";
+const OAUTH_VERIFIER_KEY = "drive_prep_oauth_verifier";
 
 function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -74,6 +75,33 @@ export function getStoredSession(): SupabaseSession | null {
 export function clearStoredSession() {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(STORAGE_KEY);
+}
+
+function toBase64Url(buffer: ArrayBuffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  for (let i = 0; i < bytes.length; i += 1) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function createRandomVerifier(length = 64) {
+  const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
+  const bytes = new Uint8Array(length);
+  window.crypto.getRandomValues(bytes);
+  let out = "";
+  for (let i = 0; i < bytes.length; i += 1) {
+    out += charset[bytes[i] % charset.length];
+  }
+  return out;
+}
+
+async function createPkceChallenge(verifier: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(verifier);
+  const digest = await window.crypto.subtle.digest("SHA-256", data);
+  return toBase64Url(digest);
 }
 
 async function upsertProfile(
@@ -202,12 +230,29 @@ export async function signInWithGoogle() {
     throw new Error("Connexion Google disponible uniquement dans le navigateur.");
   }
 
+  // PKCE flow: avoids fragile implicit token redirects and keeps callback stable.
+  const verifier = createRandomVerifier(64);
+  const challenge = await createPkceChallenge(verifier);
+  window.sessionStorage.setItem(OAUTH_VERIFIER_KEY, verifier);
+
   const authorizeUrl = new URL(`${url}/auth/v1/authorize`);
   authorizeUrl.searchParams.set("provider", "google");
   if (redirectTo) {
     authorizeUrl.searchParams.set("redirect_to", redirectTo);
   }
   authorizeUrl.searchParams.set("apikey", key);
+  authorizeUrl.searchParams.set("code_challenge", challenge);
+  authorizeUrl.searchParams.set("code_challenge_method", "s256");
 
   window.location.assign(authorizeUrl.toString());
+}
+
+export function getStoredOAuthVerifier() {
+  if (typeof window === "undefined") return null;
+  return window.sessionStorage.getItem(OAUTH_VERIFIER_KEY);
+}
+
+export function clearStoredOAuthVerifier() {
+  if (typeof window === "undefined") return;
+  window.sessionStorage.removeItem(OAUTH_VERIFIER_KEY);
 }

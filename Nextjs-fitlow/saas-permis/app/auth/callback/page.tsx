@@ -3,7 +3,11 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { setStoredSession } from "@/lib/supabase/auth";
+import {
+  clearStoredOAuthVerifier,
+  getStoredOAuthVerifier,
+  setStoredSession,
+} from "@/lib/supabase/auth";
 
 type CallbackSession = {
   access_token: string;
@@ -79,6 +83,49 @@ async function tryVerifyTokenHash(params: URLSearchParams): Promise<CallbackSess
   };
 }
 
+async function tryExchangeOAuthCode(params: URLSearchParams): Promise<CallbackSession | null> {
+  const code = params.get("code");
+  const verifier = getStoredOAuthVerifier();
+  const config = getPublicSupabaseConfig();
+  if (!code || !verifier || !config) return null;
+
+  const response = await fetch(`${config.url}/auth/v1/token?grant_type=pkce`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: config.key,
+    },
+    body: JSON.stringify({
+      auth_code: code,
+      code_verifier: verifier,
+    }),
+  });
+
+  const raw = await response.text();
+  if (!response.ok || !raw) return null;
+
+  let json: Partial<CallbackSession> = {};
+  try {
+    json = JSON.parse(raw) as Partial<CallbackSession>;
+  } catch {
+    return null;
+  }
+
+  if (!json.access_token || !json.refresh_token || !json.user?.id) return null;
+
+  clearStoredOAuthVerifier();
+  return {
+    access_token: json.access_token,
+    refresh_token: json.refresh_token,
+    expires_in: Number(json.expires_in ?? 3600),
+    token_type: json.token_type ?? "bearer",
+    user: {
+      id: json.user.id,
+      email: json.user.email,
+    },
+  };
+}
+
 export default function AuthCallbackPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -123,6 +170,17 @@ export default function AuthCallbackPage() {
           expiresIn = verifiedSession.expires_in;
           userId = verifiedSession.user.id;
           email = verifiedSession.user.email;
+        }
+      }
+
+      if (!accessToken || !refreshToken) {
+        const exchangedSession = await tryExchangeOAuthCode(params);
+        if (exchangedSession) {
+          accessToken = exchangedSession.access_token;
+          refreshToken = exchangedSession.refresh_token;
+          expiresIn = exchangedSession.expires_in;
+          userId = exchangedSession.user.id;
+          email = exchangedSession.user.email;
         }
       }
 
