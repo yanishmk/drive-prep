@@ -61,6 +61,30 @@ function getPublicSupabaseConfig() {
   return { url, key };
 }
 
+function fromBase64UrlText(value: string) {
+  const normalized = value.replace(/-/g, "+").replace(/_/g, "/");
+  const padded = normalized.padEnd(
+    normalized.length + ((4 - (normalized.length % 4)) % 4),
+    "="
+  );
+  return atob(padded);
+}
+
+function getVerifierFromState(params: URLSearchParams) {
+  const rawState = params.get("state");
+  if (!rawState) return null;
+  try {
+    const decoded = fromBase64UrlText(rawState);
+    const parsed = JSON.parse(decoded) as { v?: string; ts?: number };
+    if (typeof parsed?.v === "string" && parsed.v.length >= 40) {
+      return parsed.v;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 async function tryVerifyTokenHash(params: URLSearchParams): Promise<CallbackSession | null> {
   const tokenHash = params.get("token_hash");
   const type = params.get("type");
@@ -105,7 +129,7 @@ async function tryVerifyTokenHash(params: URLSearchParams): Promise<CallbackSess
 
 async function tryExchangeOAuthCode(params: URLSearchParams): Promise<CallbackSession | null> {
   const code = params.get("code");
-  const verifier = getStoredOAuthVerifier();
+  const verifier = getStoredOAuthVerifier() ?? getVerifierFromState(params);
   const config = getPublicSupabaseConfig();
   if (!code || !verifier || !config) return null;
 
@@ -196,6 +220,19 @@ export default function AuthCallbackPage() {
       }
 
       if (!accessToken || !refreshToken) {
+        const hasCode = Boolean(params.get("code"));
+        const hasVerifier = Boolean(
+          getStoredOAuthVerifier() ?? getVerifierFromState(params)
+        );
+        if (fromOAuth && hasCode && !hasVerifier) {
+          if (isActive) {
+            setError(
+              "Session Google expirée (code_verifier introuvable). Recommence depuis Continuer avec Google."
+            );
+          }
+          return;
+        }
+
         const exchangedSession = await tryExchangeOAuthCode(params);
         if (exchangedSession) {
           accessToken = exchangedSession.access_token;

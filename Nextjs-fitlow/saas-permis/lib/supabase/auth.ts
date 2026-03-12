@@ -93,6 +93,11 @@ function toBase64Url(buffer: ArrayBuffer) {
   return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
+function toBase64UrlText(value: string) {
+  const bytes = new TextEncoder().encode(value);
+  return toBase64Url(bytes.buffer);
+}
+
 function createRandomVerifier(length = 64) {
   const charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~";
   const bytes = new Uint8Array(length);
@@ -241,6 +246,11 @@ export async function signInWithGoogle() {
   const verifier = createRandomVerifier(64);
   const challenge = await createPkceChallenge(verifier);
   storeOAuthVerifier(verifier);
+  const statePayload = JSON.stringify({
+    v: verifier,
+    ts: Date.now(),
+  });
+  const state = toBase64UrlText(statePayload);
 
   const authorizeUrl = new URL(`${url}/auth/v1/authorize`);
   authorizeUrl.searchParams.set("provider", "google");
@@ -251,6 +261,7 @@ export async function signInWithGoogle() {
   authorizeUrl.searchParams.set("apikey", key);
   authorizeUrl.searchParams.set("code_challenge", challenge);
   authorizeUrl.searchParams.set("code_challenge_method", "s256");
+  authorizeUrl.searchParams.set("state", state);
 
   window.location.assign(authorizeUrl.toString());
 }
