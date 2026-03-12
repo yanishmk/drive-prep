@@ -20,6 +20,8 @@ type CallbackSession = {
   };
 };
 
+type CallbackIntent = "oauth" | "email_confirmation" | "unknown";
+
 function parseAuthParams() {
   if (typeof window === "undefined") return new URLSearchParams();
   const searchParams = new URLSearchParams(window.location.search);
@@ -30,6 +32,24 @@ function parseAuthParams() {
   const merged = new URLSearchParams(searchParams.toString());
   hashParams.forEach((value, key) => merged.set(key, value));
   return merged;
+}
+
+function detectCallbackIntent(params: URLSearchParams): CallbackIntent {
+  const from = (params.get("from") ?? "").toLowerCase();
+  const type = (params.get("type") ?? "").toLowerCase();
+
+  if (from === "oauth" || params.has("code")) return "oauth";
+
+  if (
+    from === "signup" ||
+    params.has("token_hash") ||
+    type === "signup" ||
+    type === "email"
+  ) {
+    return "email_confirmation";
+  }
+
+  return "unknown";
 }
 
 function getPublicSupabaseConfig() {
@@ -146,9 +166,11 @@ export default function AuthCallbackPage() {
 
     async function run() {
       const params = parseAuthParams();
+      const intent = detectCallbackIntent(params);
       const errorDescription =
         params.get("error_description") ?? params.get("error");
-      const fromSignup = params.get("from") === "signup" || params.get("type") === "signup";
+      const fromSignup = intent === "email_confirmation";
+      const fromOAuth = intent === "oauth";
 
       if (errorDescription) {
         if (isActive) setError(errorDescription);
@@ -191,6 +213,13 @@ export default function AuthCallbackPage() {
             setTimeout(
               () => router.replace("/confirmation-inscription?email_confirmed=1"),
               1200
+            );
+            return;
+          }
+          if (fromOAuth) {
+            clearStoredOAuthVerifier();
+            setError(
+              "Session Google invalide ou expiree. Reessaie avec Continuer avec Google."
             );
             return;
           }

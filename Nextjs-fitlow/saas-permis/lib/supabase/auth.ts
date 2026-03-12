@@ -77,6 +77,13 @@ export function clearStoredSession() {
   window.localStorage.removeItem(STORAGE_KEY);
 }
 
+function storeOAuthVerifier(verifier: string) {
+  if (typeof window === "undefined") return;
+  // Keep both stores to survive browser tab/open-mode differences.
+  window.sessionStorage.setItem(OAUTH_VERIFIER_KEY, verifier);
+  window.localStorage.setItem(OAUTH_VERIFIER_KEY, verifier);
+}
+
 function toBase64Url(buffer: ArrayBuffer) {
   const bytes = new Uint8Array(buffer);
   let binary = "";
@@ -233,10 +240,11 @@ export async function signInWithGoogle() {
   // PKCE flow: avoids fragile implicit token redirects and keeps callback stable.
   const verifier = createRandomVerifier(64);
   const challenge = await createPkceChallenge(verifier);
-  window.sessionStorage.setItem(OAUTH_VERIFIER_KEY, verifier);
+  storeOAuthVerifier(verifier);
 
   const authorizeUrl = new URL(`${url}/auth/v1/authorize`);
   authorizeUrl.searchParams.set("provider", "google");
+  authorizeUrl.searchParams.set("flow_type", "pkce");
   if (redirectTo) {
     authorizeUrl.searchParams.set("redirect_to", redirectTo);
   }
@@ -249,10 +257,14 @@ export async function signInWithGoogle() {
 
 export function getStoredOAuthVerifier() {
   if (typeof window === "undefined") return null;
-  return window.sessionStorage.getItem(OAUTH_VERIFIER_KEY);
+  return (
+    window.sessionStorage.getItem(OAUTH_VERIFIER_KEY) ??
+    window.localStorage.getItem(OAUTH_VERIFIER_KEY)
+  );
 }
 
 export function clearStoredOAuthVerifier() {
   if (typeof window === "undefined") return;
   window.sessionStorage.removeItem(OAUTH_VERIFIER_KEY);
+  window.localStorage.removeItem(OAUTH_VERIFIER_KEY);
 }
